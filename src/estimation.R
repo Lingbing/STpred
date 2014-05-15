@@ -32,3 +32,9 @@ print(MCMC.mdb.model)
 names(MCMC.mdb.model)
 summary(MCMC.mdb.model)
 plot(MCMC.mdb.model)
+# MCMC tracks
+par(mfrow=c(5,1),mar=c(2,2,2.5,.5))
+plot(MCMC.mdb.model, ylab="", xlab="", type="l")
+for(i in c(4,9,13,15)){
+  plot(MCMC.mdb.model, i, ylab="", xlab="", type="l")
+}
