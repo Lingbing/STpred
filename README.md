@@ -1,4 +1,4 @@
-# Spatio-temporal prediction
+# Spatio-temporal Prediction
 
-Using hierachical model and ensemble method to improve the prediction accuracy for spatio-temppral data, 
-especiall when there is seasonal pattern and inflated zero values in the data.
+This project utilises hierachical model and ensemble prediction to improve the accuracy for (out-sample) predicting spatio-temporal data,
+especiall when there is seasonality and zero-inflation in the data.
