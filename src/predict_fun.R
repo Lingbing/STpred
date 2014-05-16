@@ -10,6 +10,7 @@ STpred <- function(est = est.mdb.model, STmodel = mdb.model,
   }
   f1 <- STmdb$trend$V1
   f2 <- STmdb$trend$V2
+  ####
   
   T <- estdate[1:(m + ph)]
   f1.pred = forecast(auto.arima(f1), h = ph)
@@ -19,11 +20,11 @@ STpred <- function(est = est.mdb.model, STmodel = mdb.model,
   F1 <- c(f1, as.numeric(f1.pred$mean))
   F2 <- f2.pred
   if (!is.null(STmodel$ST.list)) {
-    pred.ind = pred.ind
+    pred.ind = as.data.frame(pred.ind)
   }
   
-  # create a new ST data (with st convariate)for prediction
-  STmdb_p <- STmdb
+  # create a new ST a (with st convariate)for prediction
+  
   if (!is.null(STmodel$ST.list)) {
     ST.list <- list(ind = pred.ind)
     STmdb_st <- createSTdata(obs, covars, SpatioTemporal = ST.list)
