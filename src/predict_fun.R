@@ -1,25 +1,31 @@
 # Spatio-temporal prediction function
+load(file = "./data/init.rda")
+load(file = "./data/estdata.rda")
 
+m = 360
+s = 26
+ph = 12
+pred.ind <- estdata[1:(m + ph), 1:s]
+a <- pred.ind
+a[a != 0] <- 1
+pred.ind <- a
 STpred <- function(est = est.mdb.model, STmodel = mdb.model,
-                   m = 360, ph = 12, pred.ind = pred.ind, LUR = NULL) {
-  if (!is.null(LUR)) {
-    LUR <- list(~alt, ~alt, ~alt)
-  } else {
-    LUR <- list(~1, ~1, ~1)
-  }
-  f1 <- STmdb$trend$V1
-  f2 <- STmdb$trend$V2
+                   pred.dummy = pred.ind, LUR = list(~1, ~1, ~1)) {
+  
+
+  f1 <- STmodel$trend$V1
+  f2 <- STmodel$trend$V2
   
   estdate <- as.Date(rownames(estdata))
   T <- estdate[1:(m + ph)]
   f1.pred = forecast(auto.arima(f1), h =, ph)
-  f2.pred = suppressWarnings(spline(x = date.month[1:m], 
+  f2.pred = suppressWarnings(spline(x = estdate[1:m], 
                                     y = f2, xout = T,
                                     method = "periodic"))$y
   F1 <- c(f1, as.numeric(f1.pred$mean))
   F2 <- f2.pred
-  if (!is.null(STmodel$ST.list)) {
-    pred.ind = pred.ind
+  if (is.null(STmodel$ST.list)) {
+    pred.dummy <- NULL
   }
   
   # create a new ST a (with st convariate)for prediction
