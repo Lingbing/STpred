@@ -1,8 +1,7 @@
 # Spatio-temporal prediction function
 
 STpred <- function(est = est.mdb.model, STmodel = mdb.model,
-                   m = 360, ph = 12, pred.ind = NULL, LUR = NULL) {
-  estdate <- STmodel$trend$date
+                   m = 360, ph = 12, pred.ind = pred.ind, LUR = NULL) {
   if (!is.null(LUR)) {
     LUR <- list(~alt, ~alt, ~alt)
   } else {
@@ -10,17 +9,17 @@ STpred <- function(est = est.mdb.model, STmodel = mdb.model,
   }
   f1 <- STmdb$trend$V1
   f2 <- STmdb$trend$V2
-  ####
   
+  estdate <- as.Date(rownames(estdata))
   T <- estdate[1:(m + ph)]
-  f1.pred = forecast(auto.arima(f1), h = ph)
+  f1.pred = forecast(auto.arima(f1), h =, ph)
   f2.pred = suppressWarnings(spline(x = date.month[1:m], 
                                     y = f2, xout = T,
                                     method = "periodic"))$y
   F1 <- c(f1, as.numeric(f1.pred$mean))
   F2 <- f2.pred
   if (!is.null(STmodel$ST.list)) {
-    pred.ind = as.data.frame(pred.ind)
+    pred.ind = pred.ind
   }
   
   # create a new ST a (with st convariate)for prediction
@@ -51,7 +50,7 @@ STpred <- function(est = est.mdb.model, STmodel = mdb.model,
 #   loglikeSTdim(mdb.pred.st)
   # Prediction (with spatio-temporal covariate) in action
   
-  pred_sp <- predict(mdb.pred.st, est.mdb.model, type = "f",
+  pred_sp <- predict(mdb.pred.st, est, type = "f",
                                  pred.var = TRUE)
-return(pred_sp)
+  return(pred_sp)
 }
