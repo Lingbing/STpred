@@ -16,9 +16,13 @@ STpred <- function(est = est.mdb.model, STmodel = mdb.model,
   f1 <- STmodel$trend$V1
   f2 <- STmodel$trend$V2
   
+#   f1 <- ts(f1, start = c(1980, 1), end = c(2009, 12), frequency = 12)
+#   f2 <- ts(f2, start = c(1980, 1), end = c(2009, 12), frequency = 12)
+
   estdate <- as.Date(rownames(estdata))
   T <- estdate[1:(m + ph)]
-  f1.pred = forecast(auto.arima(f1), h =, ph)
+  f1.pred = forecast(bats(f1), h = ph)
+  f2.pred = forecast(bats(f2),  h = ph)
   f2.pred = suppressWarnings(spline(x = estdate[1:m], 
                                     y = f2, xout = T,
                                     method = "periodic"))$y
@@ -60,3 +64,18 @@ STpred <- function(est = est.mdb.model, STmodel = mdb.model,
                                  pred.var = TRUE)
   return(pred_sp)
 }
+
+# par(mfrow = c(2, 1))
+# plot(f1, ylab = "First basis function")
+# plot(f2, ylab = "Second basis function")
+# par(mfrow = c(1, 1))
+
+pred1 <- STpred(LUR = list(~alt, ~alt, ~alt))
+pred2 <- STpred(LUR = list(~1, ~1, ~1))
+pred3 <- STpred(LUR = list(~1, ~1, ~1))
+predict1 <- pred1$EX[361:372, ]
+HeatStruct(predict1)
+# True values
+tvalues <- estdata[361:372, 1:26]
+plot(predict1, tvalues)
+a <- sum((predict1 - tvalues)^2)/length(tvalues)
