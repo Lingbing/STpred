@@ -13,15 +13,17 @@ zp <- function(vec) {
   }
   nv
 }
-
-month <- 1 + as.POSIXlt(rownames(mdbdata))$mon
-
+m = 360
+s = 26
+month <- 1 + as.POSIXlt(rownames(estdata))$mon
+mdbdata <- estdata[1:m, 1:s]
 # find the proportin of zeros
 pz <- sapply(as.data.frame(mdbdata), zp)
 zerop <- 12*pz
 rainp <- 1 - zerop
 library(mvtsplot)
-mvtsplot(rainp, levels = 9,  rowstat = "mean", palette = "OrRd")
+mvtsplot(rainp, levels = 9,  rowstat = "mean",
+         palette = "OrRd")
 
 funp <- Vectorize(function(prob) rbinom(prob = prob, n = 1, size = 1), "prob")
 
