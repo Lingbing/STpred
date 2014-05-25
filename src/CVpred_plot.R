@@ -34,29 +34,25 @@ layout(matrix(c(1, 1, 2, 2, 3, 4), 3, 2, byrow = TRUE))
 plot(pred.cv, ID = "X024511", xlab= "", ylab = "Rainfall",
      col = c("firebrick", "gray39", "azure2"),
      main = "Predictions for X024511", lty = c(1, NA), lwd = 2,
-     pch = c(NA, 19), cex = 0.75, ylim = c(-0.5, 7.5))
+     pch = c(NA, 19), cex = 0.75, ylim = c(-0.5, 10))
 plot(pred.cv, ID = "X024511", pred.type = "EX.mu", lty = 3, lwd = 3, 
      col = "darkviolet", add = TRUE)
 plot(pred.cv, ID = "X024511", pred.type = "EX.mu.beta", lty = 4, lwd = 3, 
      col = "deepskyblue3", add = TRUE)
-legend("topright", c("Observations", "Predictions", "Contribution from beta",
+legend("topleft", c("Observations", "Predictions", "Contribution from beta",
                      "Contribution from mean", "95% CI"), bty = "n",
        lty = c(NA, 1, 4, 3, NA), lwd = c(NA, 2, 3, 3, NA), 
        pch = c(19, NA, NA, NA, 15), pt.cex = c(.75, NA, NA, NA, 2.5), 
-       col = c("firebrick", "gray39", "deepskyblue3", "goldenrod", "azure2"))
+       col = c("gray39", "firebrick", "deepskyblue3", "darkviolet", "azure2"))
 plot(pred.cv, ID = "X043026", xlab= "", ylab = "Rainfall",
      col = c("firebrick", "gray39", "azure2"),
      main = "Predictions for X043026", lty = c(1, NA), lwd = 2,
-     pch = c(NA, 19), cex = 0.75, ylim = c(-0.5, 8.5))
+     pch = c(NA, 19), cex = 0.75, ylim = c(-0.5, 7))
 plot(pred.cv, ID = "X043026", pred.type = "EX.mu", lty = 3, lwd = 3, 
      col = "darkviolet", add = TRUE)
 plot(pred.cv, ID = "X043026", pred.type = "EX.mu.beta", lty = 4, lwd = 3, 
      col = "deepskyblue3", add = TRUE)
-legend("topright", c("Observations", "Predictions", "Contribution from beta",
-                     "Contribution from mean", "95% CI"), bty = "n",
-       lty = c(NA, 1, 4, 3, NA), lwd = c(NA, 2, 3, 3, NA), 
-       pch = c(19, NA, NA, NA, 15), pt.cex = c(.75, NA, NA, NA, 2.5), 
-       col = c("firebrick", "gray39", "deepskyblue3", "goldenrod", "azure2"))
+
 
 plot(pred.cv, "obs", ID = "all", pch = c(19, NA), cex = .25, lty = c(NA, 2),
      col = c("ID", "black", "azure2"), xlab = "observations", 
