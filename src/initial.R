@@ -57,7 +57,7 @@ covars <- data.frame(ID = colnames(mdbdata), x = xcoor, y = ycoor,
 
 # create ST data object
 ST.list <- list(ind = zeroind)
-# ST.list <- NULL
+ST.list <- NULL
 STmdb <- createSTdata(obs, covars, n.basis = 2, SpatioTemporal = ST.list)
 print(STmdb)
 # fd <- calcSmoothTrends(STmdb, n.basis = 2)$trend
