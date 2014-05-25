@@ -31,6 +31,17 @@ funp <- Vectorize(function(prob) rbinom(prob = prob, n = 1, size = 1), "prob")
 
 funpp <- function(i) c(t(funp(i)))
 ind_rain <- apply(rainp, 2, funpp)
+ind_data <- rbind(zeroind, ind_rain)
+rownames(ind_data) <- rownames(pred.ind)
+ind_list <- vector("list", 100)
+for (i in 1:100) {
+  set.seed(i)
+  ind_rain <- apply(rainp3, 2, funpp)
+  ind_data <- rbind(zeroind, ind_rain)
+  rownames(ind_data) <- rownames(pred.ind)
+  ind_list[[i]] <- ind_data
+}
+
 load("./data/ori_sub.rda")
 ori <- ori_subdata[1:360, ]
 ori$date <- rownames(mdbdata)

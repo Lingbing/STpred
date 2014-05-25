@@ -1,23 +1,25 @@
 #' Spatio-temporal prediction
 STpred <- function(est = est.mdb.model, STmodel = mdb.model,
-                   pred.dummy = pred.ind, LUR = list(~1, ~1, ~1)) {
+                   pred.dummy = NULL, LUR = list(~1, ~1, ~1)) {
   
   
   f1 <- STmodel$trend$V1
   f2 <- STmodel$trend$V2
   
-  #   f1 <- ts(f1, start = c(1980, 1), end = c(2009, 12), frequency = 12)
-  #   f2 <- ts(f2, start = c(1980, 1), end = c(2009, 12), frequency = 12)
+  f1 <- ts(f1, start = c(1980, 1), end = c(2009, 12), frequency = 12)
+  f2 <- ts(f2, start = c(1980, 1), end = c(2009, 12), frequency = 12)
   
   estdate <- as.Date(rownames(estdata))
   T <- estdate[1:(m + ph)]
-  f1.pred = forecast(auto.arima(f1), h = ph)
-  f2.pred = forecast(auto.arima(f2),  h = ph)
-  #   f2.pred = suppressWarnings(spline(x = estdate[1:m], 
-  #                                     y = f2, xout = T,
-  #                                     method = "periodic"))$y
+  f1.pred = forecast(tbats(f1), h = ph)
+  f2.pred = forecast(tbats(f2),  h = ph)
+#   f2.pred = suppressWarnings(spline(x = estdate[1:m], 
+#                                       y = f2, xout = T,
+#                                       method = "periodic"))$y
   F1 <- c(f1, as.numeric(f1.pred$mean))
   F2 <- c(f2, as.numeric(f2.pred$mean))
+#   F2 <- f2.pred
+#   F2 <- c(f2, as.numeric(f2.pred$mean))
   if (is.null(STmodel$ST.list)) {
     pred.dummy <- NULL
   }
@@ -25,7 +27,7 @@ STpred <- function(est = est.mdb.model, STmodel = mdb.model,
   # create a new ST a (with st convariate)for prediction
   
   if (!is.null(STmodel$ST.list)) {
-    ST.list <- list(ind = pred.ind)
+    ST.list <- list(ind = pred.dummy)
     STmdb_st <- createSTdata(obs, covars, SpatioTemporal = ST.list)
   } else {
     STmdb_st <- createSTdata(obs, covars, SpatioTemporal = NULL)

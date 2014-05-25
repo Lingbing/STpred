@@ -55,12 +55,12 @@ system.time(pred_sp <- predict(mdb.pred.st, est.mdb.model, type = "f",
 
 print(pred_sp)
 plot(pred_sp)
-
+pred_sp <- pred2
 # study the prediction results --------------------------------------------
 
 # define a plot function
 pred.plot <- function(i, pred = pred_sp) {
-  par(mfrow = c(2, 1), mar = c(1, 1, 1.5, 1.5))
+#   par(mfrow = c(2, 1), mar = c(1, 1, 1.5, 1.5))
   plot(pred, ID = i, STmodel = mdb.pred.st, pred.var = TRUE)
   plot(estdata[(m + 1):(m + ph), i], col = "steelblue", type = "l", lty = 1,
        lwd = 2)
@@ -69,7 +69,7 @@ pred.plot <- function(i, pred = pred_sp) {
   legend("topright", legend = c("Predicted", "Observed"), 
          col = c("red", "steelblue"), lty = c(2, 1),
          lwd = c(2, 2))
-  par(mfrow = c(1, 1))
+#   par(mfrow = c(1, 1))
 }
 par(mfrow = c(2, 1), mar = c(1, 1, 1.5, 1.5))
 plot(pred_sp, ID = 7, STmodel = mdb.pred.st, pred.var = TRUE)
@@ -87,3 +87,9 @@ plot(pred_sp, ID = 17, pred.type = "EX.mu.beta", col = "blue", add = TRUE, lwd =
 
 
 sapply(1:26, function(i) pred.plot(i))
+
+
+par(mfrow = c(4, 1))
+pred.plot(i = "X041011")
+pred.plot(i = "X042003")
+par(mfrow = c(1, 1))
