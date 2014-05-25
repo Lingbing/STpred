@@ -1,5 +1,5 @@
 # plot the obs at some locations with the fitted smooth trends
-
+ph = 12
 par(mfrow=c(4,1), mar=c(2.5,2.5,2,.5))
 plot(STmdb, "obs", ID=3, col=c("black", "red"))
 plot(STmdb, "obs", ID=18, col=c("black", "red"))
@@ -36,12 +36,12 @@ accu1 <- rbind(accuracy(f1.pred1), accuracy(f1.pred2),accuracy(f1.pred3),
 rownames(accu1) <- c("HW", "ARIMA", "ETS", "tbats", "bats", "stl")
 accu11 <- melt(accu1)
 par(mfrow = c(6, 1))
-plot(f1.pred1, main = "")
-plot(f1.pred2)
-plot(f1.pred3)
-plot(f1.pred4)
-plot(f1.pred5)
-plot(f1.pred6)
+plot(f1.pred1, fcol = 2, flty = 2, shadecols = "grey",  main = "HW")
+plot(f1.pred2, fcol = 2, flty = 2, shadecols = "grey", main = "ARIMA")
+plot(f1.pred3, fcol = 2, flty = 2, shadecols = "grey",  main = "ETS")
+plot(f1.pred4, fcol = 2, flty = 2, shadecols = "grey",  main = "TBATS")
+plot(f1.pred5, fcol = 2, flty = 2, shadecols = "grey", main = "BATS")
+plot(f1.pred6, fcol = 2, flty = 2, shadecols = "grey",  main = "STL")
 par(mfrow = c(1, 1))
 
 
@@ -65,12 +65,12 @@ accu2 <- rbind(accuracy(f2.pred1), accuracy(f2.pred2),accuracy(f2.pred3),
 rownames(accu2) <- c("HW", "ARIMA", "ETS", "tbats", "bats", "stl")
 accu22 <- melt(accu2)
 par(mfrow = c(6, 1))
-plot(f2.pred1, main = "")
-plot(f2.pred2)
-plot(f2.pred3)
-plot(f2.pred4)
-plot(f2.pred5)
-plot(f2.pred6)
+plot(f2.pred1, fcol = 2, flty = 2, shadecols = "grey",  main = "HW")
+plot(f2.pred2, fcol = 2, flty = 2, shadecols = "grey", main = "ARIMA")
+plot(f2.pred3, fcol = 2, flty = 2, shadecols = "grey",  main = "ETS")
+plot(f2.pred4, fcol = 2, flty = 2, shadecols = "grey",  main = "TBATS")
+plot(f2.pred5, fcol = 2, flty = 2, shadecols = "grey", main = "BATS")
+plot(f2.pred6, fcol = 2, flty = 2, shadecols = "grey",  main = "STL")
 par(mfrow = c(1, 1))
 
 par(mfrow = c(2, 1))
